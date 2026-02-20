@@ -1,0 +1,28 @@
+import requests
+import matplotlib.pyplot as plt
+
+# Fetch Bitcoin market data (No API key required)
+url = "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart"
+params = {
+    "vs_currency": "usd",
+    "days": "7"
+}
+
+response = requests.get(url, params=params)
+data = response.json()
+
+# Extract prices
+prices = data["prices"]
+
+dates = [price[0] for price in prices]
+values = [price[1] for price in prices]
+
+# Plot price trend
+plt.figure()
+plt.plot(values)
+plt.title("Bitcoin Price Trend (Last 7 Days)")
+plt.xlabel("Time")
+plt.ylabel("Price (USD)")
+plt.show()
+
+print("Dashboard Generated Successfully!")
